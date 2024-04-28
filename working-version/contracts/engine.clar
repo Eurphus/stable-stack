@@ -24,7 +24,19 @@
 (define-map stableswap-minted {user: principal} uint)
 (define-data-var collateral-token principal 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-abtc)
 
+
+
 (define-fungible-token fungible-token)
+
+
+(define-data-var total-supply uint u0)
+(define-data-var total-collateral uint u0)
+(define-map user-balances principal uint)
+(define-map user-collateral principal uint)
+(define-data-var oracle-contract principal 'SP2WATQX70C2B6BS3YP0SA3288ZVAXJ5NBT74KERY.stableswap-oracle)
+
+
+
 ;; Functions and Checks
 ;; (define-read-only (is-allowed-token (token principal))
 ;;   (is-some (map-get? price-feeds (collateral-token token)))
@@ -53,8 +65,8 @@
 (define-public (deposit-and-mint (amount uint))
     (let ((caller tx-sender))
         (begin
-            ;; Assume collateral is stk-token, handled internally
-            (try! (ft-transfer? stk-token amount caller (as-contract tx-sender)))
+            ;; collateral is externAL contract, handled internally
+            (try! (ft-transfer? fungible-token amount caller (as-contract tx-sender)))
             (try! (mint! amount))
             (ok true)
         )
@@ -69,7 +81,7 @@
             (asserts! (>= (get-collateral caller) amount) (err u401)) ;; Insufficient collateral
             (asserts! (is-health-factor-ok caller) (err u402)) ;; Health factor check
             (map-set user-collateral caller (- (get-collateral caller) amount))
-            (try! (ft-burn? stk-token amount caller))
+            (try! (ft-burn? fungible-token amount caller))
             (ok true)
         )
     )
@@ -78,19 +90,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions
 
-(define-fungible-token stk-token)
-(define-data-var total-supply uint u0)
-(define-data-var total-collateral uint u0)
-(define-map user-balances principal uint)
-(define-map user-collateral principal uint)
-(define-data-var oracle-contract principal 'SP2WATQX70C2B6BS3YP0SA3288ZVAXJ5NBT74KERY.stableswap-oracle)
-
 
 ;; Mint tokens
 (define-public (mint! (amount uint))
     (let ((current-supply (var-get total-supply)))
         (var-set total-supply (+ current-supply amount))
-        (ft-mint? stk-token amount tx-sender)
+        (ft-mint? fungible-token amount tx-sender)
     )
 )
 
@@ -102,17 +107,11 @@
 ;; Health factor calculation
 (define-read-only (is-health-factor-ok (user principal))
     (let ((collateral (get-collateral user))
-          (debts (ft-get-balance stk-token user)))
+          (debts (ft-get-balance fungible-token user)))
         (>= (* collateral LIQUIDATION_THRESHOLD) (* debts MIN_HEALTH_FACTOR))
     )
 )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Initialize contract
-(begin
-    (var-set total-supply u0)
-    (var-set total-collateral u0)
-)
 
 
 (define-read-only (get-account-collateral-value (account principal))
