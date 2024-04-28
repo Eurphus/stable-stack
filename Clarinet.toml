@@ -1,6 +1,6 @@
 [project]
-name = 'blank-project'
-description = 'Create a project from scratch: Start from a blank scaffold for your next Clarity contract'
+name = 'stable-stack'
+description = 'A stablecoin pegged to the US Dollar on the Stacks protocol'
 authors = []
 telemetry = true
 cache_dir = './.cache'

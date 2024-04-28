@@ -1,10 +1,11 @@
-(define-read-only LIQUIDATION_THRESHOLD (uint))
-(define-read-only LIQUIDATION_BONUS (uint))
-(define-read-only LIQUIDATION_PRECISION (uint))
-(define-read-only MIN_HEALTH_FACTOR (uint))
-(define-read-only PRECISION (uint))
-(define-read-only ADDITIONAL_FEED_PRECISION (uint))
-(define-read-only FEED_PRECISION (uint))
+(define-constant LIQUIDATION_THRESHOLD 200)
+
+(define-constant LIQUIDATION_BONUS 10)
+(define-constant LIQUIDATION_PRECISION 100)
+(define-constant MIN_HEALTH_FACTOR 1000000000000000000)
+(define-constant PRECISION 1000000000000000000)
+(define-constant ADDITIONAL_FEED_PRECISION 10000000000)
+(define-constant FEED_PRECISION 100000000)
 
 (define-private i_susd (contract DecentralizedStableCoin))
 
