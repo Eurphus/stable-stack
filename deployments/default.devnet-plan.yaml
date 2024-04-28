@@ -9,10 +9,24 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
+            contract-name: oracle
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 12450
+            path: contracts/oracle.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
             contract-name: engine
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 66790
+            cost: 53970
             path: contracts/engine.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: token
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 44350
+            path: contracts/token.clar
             anchor-block-only: true
             clarity-version: 2
       epoch: "2.4"
