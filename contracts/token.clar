@@ -16,7 +16,7 @@
 (define-constant TOKEN_DECIMALS u6)
 ;; SIP-010 function: Get the token balance of a specified principal
 (define-read-only (get-balance (who principal))
-  (ok (ft-get-balance clarity-coin who))
+  (ok (ft-get-balance stable-stack who))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -25,7 +25,7 @@
 
 ;; SIP-010 function: Returns the total supply of fungible token
 (define-read-only (get-total-supply)
-  (ok (ft-get-supply clarity-coin))
+  (ok (ft-get-supply stable-stack))
 )
 
 ;; SIP-010 function: Returns the human-readable token name
@@ -53,7 +53,7 @@
 (define-public (mint (amount uint) (recipient principal))
   (begin
     (asserts! (is-eq tx-sender CONTRACT_OWNER) ERR_OWNER_ONLY)
-    (ft-mint? clarity-coin amount recipient)
+    (ft-mint? stable-stack amount recipient)
   )
 )
 
@@ -68,7 +68,7 @@
   (begin
     ;; #[filter(amount, recipient)]
     (asserts! (is-eq tx-sender sender) ERR_NOT_TOKEN_OWNER)
-    (try! (ft-transfer? clarity-coin amount sender recipient))
+    (try! (ft-transfer? stable-stack amount sender recipient))
     (match memo to-print (print to-print) 0x)
     (ok true)
   )
