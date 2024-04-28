@@ -1,6 +1,3 @@
-;;
-;; Constants
-;;
 (define-constant SUSDEngine__TokenAddressesAndPriceFeedAddressesAmountsDontMatch u0)
 (define-constant SUSDEngine__NeedsMoreThanZero u1)
 (define-constant SUSDEngine__TokenNotAllowed u2)
@@ -24,7 +21,7 @@
 (define-map deposits { owner: principal } { amount: uint })
 (define-map loans principal { amount: uint, last-interaction-blocl: uint })
 (define-map minted principal { amount: uint })
-(define-map collateralDeposited { owner: principal } 
+(define-map collateralDeposited principal
                                 { collateralToken: principal, amount: uint })
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -41,11 +38,14 @@
   (ok ":D")
   )
 
-(define-public (depositCollateral (address principal) (amountCollateral uint))
+(define-public (depositCollateral (tokenCollateralAddress principal) (amountCollateral uint))
   ;;(asserts! true false) ;; Being Weird, FIX later
   ;; asset check if allow token
   ;;(let ((ma val-1)) )
-  (let ((currentAmount (map-get? collateralDeposited address))) expr-1)
+  (let (
+    (current-collateral (default-to { collateralToken: tokenCollateralAddress, amount: u0} (map-get? collateralDeposited address)))
+    (due-collateral (+ (get amount current-collateral) amountCollateral))
+    ))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
