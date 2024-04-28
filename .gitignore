@@ -2,6 +2,7 @@
 **/settings/Mainnet.toml
 **/settings/Testnet.toml
 .cache/**
+**/cache
 history.txt
 
 # Ignore Node and NPM files. Added by the clarinet-sdk migration.
@@ -12,3 +13,8 @@ coverage
 *.info
 costs-reports.json
 node_modules
+/client/.next/
+
+**/.next
+
+**/.node_modules

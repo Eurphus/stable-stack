@@ -3,13 +3,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #000; /* Dark theme background */
+  background-color: #fff; 
 }
 
 .title {
   text-align: center;
   font-size: 2rem;
-  color: #0f9d58; /* Sci-fi green */
+  color: #ec3713;
 }
 
 .headerActions {
@@ -19,7 +19,7 @@
 
 .launchButton {
   padding: 0.8rem 1.6rem;
-  background-color: #0f9d58; /* Sci-fi green */
+  background-color: #ec3713; 
   border: none;
   border-radius: 0.5rem;
   color: #fff;
@@ -28,7 +28,7 @@
 }
 
 .launchButton:hover {
-  background-color: #0bc46a; /* Lighter green on hover */
+  background-color: #ec3713; 
 }
 
 .main {
