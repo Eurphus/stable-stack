@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #000; /* Dark theme background */
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: #0f9d58; /* Sci-fi green */
+}
+
+.headerActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.launchButton {
+  padding: 0.8rem 1.6rem;
+  background-color: #0f9d58; /* Sci-fi green */
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.launchButton:hover {
+  background-color: #0bc46a; /* Lighter green on hover */
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.slogan {
+  font-size: 1.25rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(25%, auto));
+  gap: 1rem;
+  width: 100%;
+}
+
+/*.imageContainer {
+  margin: 2rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}*/
+.imageContainer {
+  margin: 2rem 0;
+}
+
+
+/* Add additional CSS styles or modify existing ones as needed */
