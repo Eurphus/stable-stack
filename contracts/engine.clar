@@ -7,19 +7,16 @@
 (define-constant ERR_HEALTH_FACTOR_OK (ok u7))
 (define-constant ERR_HEALTH_FACTOR_NOT_IMPROVED (err u8))
 
-;; Constants
 (define-constant LIQUIDATION_THRESHOLD u50)
 (define-constant LIQUIDATION_BONUS u10)
 (define-constant LIQUIDATION_PRECISION u100)
-(define-constant MIN_HEALTH_FACTOR u1000000000000000000) ;; Equivalent to 1e18 in Solidity
-(define-constant PRECISION 1000000000000000000) ;; Equivalent to 1e18
-(define-constant ADDITIONAL_FEED_PRECISION 10000000000) ;; Equivalent to 1e10
-(define-constant FEED_PRECISION 100000000) ;; Equivalent to 1e8
+(define-constant MIN_HEALTH_FACTOR u1000000000000000000) ;; 1e18
+(define-constant PRECISION 1000000000000000000) ;; 1e18
+(define-constant ADDITIONAL_FEED_PRECISION 10000000000) ;;  1e10
+(define-constant FEED_PRECISION 100000000) ;;  1e8
 
 ;; State Variables
 (define-data-var stableswap-address principal 'SP2WATQX70C2B6BS3YP0SA3288ZVAXJ5NBT74KERY.stableswap)
-;; (define-data-var collateral-price-feed principal 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM)
-;; (define-map price-feeds {collateral-token: principal} principal)
 (define-map collateral-deposited {user: principal} {amount: uint})
 (define-map stableswap-minted {user: principal} uint)
 (define-data-var collateral-token principal 'SP3K8BC0PPEVCV7NZ6QSRWPQ2JE9E5B6N3PA0KBR9.token-abtc)
@@ -36,30 +33,13 @@
 (define-data-var oracle-contract principal 'SP2WATQX70C2B6BS3YP0SA3288ZVAXJ5NBT74KERY.stableswap-oracle)
 
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Functions and Checks
-;; (define-read-only (is-allowed-token (token principal))
-;;   (is-some (map-get? price-feeds (collateral-token token)))
-;; )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-private (more-than-zero (amount uint))
   (if (> amount u0) (ok true) (err ERR_NEEDS_MORE_THAN_ZERO))
 )
-
-;; Constructor-like Function
-;; (define-public (initialize (token-addresses (list 10 principal)) (price-feed-addresses (list 10 principal)) (stableswap-address principal))
-;;   (begin
-;;     ;; Check lengths match
-;;     ;; (asserts! (eq? (len token-addresses) (len price-feed-addresses)) ERR_TOKEN_ADDRESSES_AND_PRICE_FEED_ADDRESSES_AMOUNTS_DONT_MATCH)
-;;     ;; Initialize price feeds
-;;     (map zip token-addresses price-feed-addresses (lambda (token price-feed) 
-;;       (map-set price-feeds (collateral-token token) price-feed)))
-;;     ;; Set stableswap address
-;;     (var-set stableswap-address stableswap-address)
-;;     ;; Set collateral tokens (not in this example due to Clarity's current limitations)
-;;     (ok true)
-;;   )
-;; )
 
 ;; Deposit collateral and mint stableswap
 (define-public (deposit-and-mint (amount uint))
@@ -75,6 +55,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Burn stableswap and manage collateral
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-public (burn-and-manage-collateral (amount uint))
     (let ((caller tx-sender))
         (begin
@@ -89,7 +70,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helper functions
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Mint tokens
 (define-public (mint! (amount uint))
