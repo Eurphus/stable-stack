@@ -45,8 +45,7 @@
   (let (
     (current-collateral (default-to { collateralToken: tokenCollateralAddress, amount: u0} (map-get? collateralDeposited address)))
     (due-collateral (+ (get amount current-collateral) amountCollateral))
-    )
-    (map- price-feed address { amount: new-loan}))
+    ))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

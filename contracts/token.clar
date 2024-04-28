@@ -2,6 +2,10 @@
 
 (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.sip-010-trait)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Constants                        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-fungible-token stable-stack)
 (define-constant CONTRACT_OWNER tx-sender)
 ;; Token metadata lnk
@@ -14,6 +18,10 @@
 (define-read-only (get-balance (who principal))
   (ok (ft-get-balance clarity-coin who))
 )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  FT Functions                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; SIP-010 function: Returns the total supply of fungible token
 (define-read-only (get-total-supply)
